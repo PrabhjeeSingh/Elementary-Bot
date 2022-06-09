@@ -23,6 +23,18 @@ class Basic(commands.Cog):
     async def ping(self,ctx):
         await ctx.send(f"Pong {round(self.client.latency*1000)}ms")
 
+    # Command to Kick people
+    @commands.command()
+    # Making command only accessible to administrator 
+    @commands.has_permissions(administrator=True)
+    async def kick(self, ctx, member:discord.Member):
+        await member.kick()
+        await ctx.send(f"{member.name} has been kicked by {ctx.author.name}!")
+        await ctx.message.add_reaction(":poop:")
+       
+        
+
+
 
     
 

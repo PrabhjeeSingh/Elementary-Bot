@@ -11,10 +11,10 @@ client = commands.Bot("!")
 # Client is the class
 # @ client.command is the decorator which is adding followinf function to already created client class
 
-@client.event
-async def on_ready():
-    # client.send("I'm Back")
-    print("Baby is up : )")
+# @client.event
+# async def on_ready():
+#     # client.send("I'm Back")
+#     print("Baby is up : )")
 
 
 channel_list=[]
