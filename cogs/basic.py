@@ -30,13 +30,29 @@ class Basic(commands.Cog):
     async def kick(self, ctx, member:discord.Member):
         await member.kick()
         await ctx.send(f"{member.name} has been kicked by {ctx.author.name}!")
-        await ctx.message.add_reaction(":poop:")
+        # await ctx.message.add_reaction(":poop:")
        
-        
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def ban(self, ctx, member:discord.Member, reason ="I don't like him"):
+        await member.ban()
+        await ctx.send(f'{member.name} has been banned because {reason}')
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def unban(self, ctx,member):
+        # getting all banned users in the guild
+        banned= await ctx.guild.bans()
+        name,id=member.split('#')
+        # Loop for going through the banned user and comparing with  
+        for ban_entry in banned:
+            user = ban_entry.user
+            if(user.name, user.discriminator)==(name,id):
+                await ctx.guild.unban(user)
+                await ctx.send(f'{user.name} has been unbanned because I am feeling good')
 
 
 
-    
 
 
 # Method to make an object of this class 

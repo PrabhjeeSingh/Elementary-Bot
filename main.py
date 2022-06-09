@@ -26,20 +26,28 @@ print(list(client.get_all_channels()))
 ##### DO Not change 'ctx' to anything it's a keyword #####
 # extension = name of the cogs page to load
 @client.command()
+@commands.has_any_role("Managers","Founders")
 async def load(ctx,extension):
     client.load_extension(f'cogs.{extension}')
 
 
 # UnLoad command to unload a python page
 @client.command()
+@commands.has_any_role("Managers","Founders")
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
+
+@client.command()
+@commands.has_any_role("Managers","Founders")
+async def reload(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
+    client.load_extension(f'cogs.{extension}')
 
 # Loading all cogs during start of the program
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
-        # /print(filename)
+        print(filename)
 
     
 
