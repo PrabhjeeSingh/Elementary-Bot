@@ -1,3 +1,4 @@
+from errno import EXDEV
 import discord
 from discord.ext import commands
 import os
@@ -29,6 +30,7 @@ print(list(client.get_all_channels()))
 @commands.has_any_role("Managers","Founders")
 async def load(ctx,extension):
     client.load_extension(f'cogs.{extension}')
+    await ctx.send(f"{extension} was loaded.")
 
 
 # UnLoad command to unload a python page
@@ -36,32 +38,23 @@ async def load(ctx,extension):
 @commands.has_any_role("Managers","Founders")
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
+    await ctx.send(f"{extension} was unloaded.")
 
 @client.command()
 @commands.has_any_role("Managers","Founders")
 async def reload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
-    client.load_extension(f'cogs.{extension}')
+    try:
+        client.unload_extension(f'cogs.{extension}')
+        client.load_extension(f'cogs.{extension}')
+        await ctx.send(f"{extension} reload complete")
+    except Exception:
+        await ctx.send(Exception)
 
 # Loading all cogs during start of the program
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
         print(filename)
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #Bot token: and event looop 
